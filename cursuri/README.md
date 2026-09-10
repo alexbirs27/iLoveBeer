@@ -18,7 +18,10 @@ De asta vreau ca acest curs sa fie mai mult decat o colectie de algoritmi si tru
 
 Un parcurs de la zero pana la nivel de olimpiada, care va evolua pe parcurs. E facut din ce descriu ei pe ONIA, dar nu imi place ordinea in care se face asta neaparat
 
-- Python, NumPy, Pandas
+Fiecare capitol bifat e un folder cu `README.md` (teorie) + `exercitii.md`
+(exercitii, fiecare cu link catre notebook-ul lui in `notebooks/`).
+
+- [Python, NumPy, Pandas](fundamentals/README.md)
 - Prelucrarea si vizualizarea datelor
 - Machine Learning fundamentals
 - Regresie si clasificare
