@@ -1,0 +1,241 @@
+\chapter*{De ce}
+\addcontentsline{toc}{chapter}{De ce}
+
+\begin{quote}
+Toate modelele sunt gresite, dar unele sunt utile.
+
+\begin{flushright}
+-- George Box
+\end{flushright}
+\end{quote}
+
+Inca ezit putin sa ma apuc de el deoarece:
+
+Nu sunt foarte convins ca numele \textit{AI} descrie ceea ce facem prin
+aceste metode. Mi se pare, de multe ori, o umbra palida a cognitiei: luam
+lucruri extrem de complexe si le trecem printr-un model surogat si miop, optimizat
+pentru un proxy care nu surprinde neaparat ceea ce ne intereseaza cu
+adevarat. Iar termenul este folosit foarte des cu o conotatie mult mai
+pretentioasa decat continutul real.
+
+Mai important, cred ca o olimpiada de ML risca sa puna prea mult accent pe
+\textbf{cum facem ceva} si prea putin pe \textbf{de ce facem acel lucru}.
+
+La informatica, o metrica este de obicei destul de cinstita: o solutie
+corecta este corecta. In ML, lucrurile sunt mai ample. Poti ajunge sa
+optimizezi o metrica care este doar un proxy pentru un obiectiv mult mai
+complex, iar raspunsul la o problema poate deveni pur si simplu ``facem o
+retea mai mare''. In industrie se ajunge uneori sa construim sisteme care
+optimizeaza foarte bine lucruri care poate nu ar fi trebuit optimizate in
+primul rand.
+
+De asta vreau ca acest curs sa fie mai mult decat o colectie de algoritmi
+si trucuri pentru olimpiada.
+
+\textbf{Magia apare atunci cand intelegi ce poti sa rezolvi, cum poti sa
+rezolvi si, mai ales, de ce merita sa rezolvi problema respectiva.}
+
+\section*{Creierul nu e facut pentru statistica}
+
+Traim in cea mai sigura perioada din istoria omenirii, si totusi ne e
+frica de aproape orice. Motivul nu e ca lumea reala e periculoasa, e ca
+noi, ca specie, suntem prost echipati sa intelegem probabilitatile.
+Creierul judeca riscul dupa cat de vie e o poveste, nu dupa cat de des se
+intampla ceva de fapt. Ne e frica de avion, unde riscul de deces e undeva
+la 1 la cateva milioane de zboruri, dar urcam linistiti la volan, unde
+riscul e cu mult mai mare, doar ca nu are aceeasi incarcatura emotionala.
+
+Acelasi mecanism il vezi la loterie: oamenii aleg numere ``norocoase'' sau
+evita 13, desi fiecare combinatie are exact aceeasi sansa. Il vezi la
+ruleta, cand dupa opt rosii la rand toata lumea e convinsa ca urmeaza
+negru, desi bila nu tine minte nimic din rotirile anterioare (asta se
+cheama \textit{falacia jucatorului}). Si il vezi la poker: un jucator bun
+castiga pe termen lung nu pentru ca ghiceste cartile, ci pentru ca ia,
+mana dupa mana, decizii corecte statistic, chiar daca pierde uneori o
+mana anume. Diferenta dintre un jucator bun si unul prost nu e norocul de
+moment, e intelegerea probabilitatilor pe termen lung, si o sa exersam
+exact chestia asta la clasa, cu carti pe masa, nu doar cu formule pe
+tabla.
+
+De ce conteaza asta pentru un curs de ML? Pentru ca jobul vostru, ca
+oameni care lucreaza cu date, e exact opusul acestui reflex: sa scoateti
+decizia din mana intuitiei si sa o puneti pe o baza masurabila. Dar ca sa
+faceti asta bine, trebuie sa fiti foarte atenti de unde vin datele alea.
+
+\section*{Garbage in, garbage out}
+
+Poate ati observat ca studiile de nutritie se contrazic constant: intr-un
+an oule sunt periculoase, in urmatorul sunt super-aliment. Motivul, de
+multe ori, nu e ca stiinta se schimba, e ca datele sunt proaste de la
+inceput. Multe studii se bazeaza pe chestionare in care oamenii isi
+amintesc ce au mancat saptamana trecuta, memorie nesigura, si raporteaza
+ce cred ca ar trebui sa fi mancat, nu ce au mancat cu adevarat.
+
+Nu conteaza cat de sofisticat e modelul vostru: o retea neuronala cu sute
+de milioane de parametri, antrenata pe date subiective, tot zgomot invata,
+nu realitate. Algoritmul e o oglinda, reflecta exact ce ii dai, buguri si
+minciuni incluse. De-aia o sa insistam, in cursurile urmatoare, pe cum se
+colecteaza si se curata datele, nu doar pe cum se antreneaza un model.
+
+Un exemplu istoric bun pentru genul asta de eroare, dar dintr-un unghi
+diferit, e \textit{Clever Hans}, un cal din Germania de la inceputul
+secolului XX care parea sa stie sa faca operatii matematice, batand din
+copita de cate ori era nevoie. Nu stia matematica, desigur: citea, fara sa
+vrea nimeni asta, semnale corporale involuntare de la antrenorul lui, care
+se relaxa vizibil cand calul ajungea la numarul corect. Asta se cheama,
+azi, \textit{data leakage} sau \textit{shortcut learning}: modelul, sau calul, invata sa exploateze un
+semnal care e corelat cu raspunsul corect, dar care n-are nicio legatura
+reala cu problema, si care de multe ori nici n-o sa mai fie disponibil
+cand rulezi modelul in productie. Ideea merita retinuta devreme: cand un
+model merge suspect de bine, prima intrebare nu e ``ce genial e'', e ``ce
+a gasit, de fapt, sa trisheze''.
+
+\section*{Corelatie nu inseamna cauzalitate}
+
+Japonezii mananca putina carne si traiesc foarte mult. Spaniolii mananca
+de doua ori mai multa carne, de patru ori mai multa grasime animala, si
+totusi sunt pe locul doi in lume la speranta de viata, la o distanta
+infima de Japonia. Daca ai antrena un model simplu care leaga direct
+consumul de carne de mortalitate, ai rata complet explicatia.
+
+Ce lipseste din poza e tot ce nu ai masurat: sistemul de sanatate, cat
+mers pe jos face fiecare zi, cat de relaxat e contextul social in care
+mananci. Astea se numesc \textit{variabile de confuzie}, factori ascunsi
+care influenteaza si cauza aparenta si efectul, dar pe care nu i-ai
+inclus in date. Un model nu stie ce ai uitat sa masori, el vede doar ce
+ii dai, si gaseste corelatii, nu explicatii. Partea grea a lucrului cu
+date nu e sa rulezi un algoritm, e sa te gandesti ce lipseste din tabelul
+tau inainte sa tragi o concluzie.
+
+\section*{Metrica gresita, decizie gresita}
+
+Un exemplu la scara mare: dupa accidentul de la Fukushima, unde numarul
+de decese directe cauzate de radiatii a fost aproape zero, mai multe tari
+au inchis centrale nucleare functionale, de frica unui accident extrem de
+rar, si au trecut, partial, pe carbune. Poluarea din arderea carbunelui
+insa e o cauza constanta si masurabila de mortalitate, an de an, la o
+scara mult mai mare decat orice accident nuclear din istorie. Optimizand
+impotriva riscului mai spectaculos, dar mai rar, ai putea agrava riscul
+mai banal, dar mai frecvent si mai mare.
+
+Asta e exact problema unei functii de cost (\textit{loss function}) prost
+alese intr-un model de ML: daca optimizezi pentru metrica gresita, modelul
+tau o sa ``rezolve'' cu succes o problema care nu era cea reala. O sa
+vorbim mult despre metrici mai incolo in curs, accuracy, precision, recall
+si restul, dar tineti minte de pe acum: alegerea metricii nu e un detaliu
+tehnic, e decizia care conteaza cel mai mult.
+
+Exista si o lege scurta care rezuma toata problema asta: cand o masura
+devine tinta, ea inceteaza sa mai fie o masura buna, \textit{legea lui
+Goodhart}. O vezi peste tot: note care devin scopul scolii, in loc de
+invatare; KPI-uri de companie care se optimizeaza fara sa mai reflecte
+performanta reala; retele sociale care optimizeaza timpul petrecut pe
+aplicatie, nu binele utilizatorului. Fiecare model de ML pe care il
+construiti o sa optimizeze exact ce ii cereti, nici un pic mai mult si
+nici un pic mai intelept. Responsabilitatea sa cereti lucrul corect
+ramane a voastra.
+
+\section*{Cum o sa invatam}
+
+O sa incepem cu ceva simplu si contraintuitiv, ca sa vedeti cat de prost
+va poate insela intuitia: problema Monty Hall, cu cele trei usi, unde
+raspunsul corect nu e cel pe care il da aproape toata lumea din prima. E
+un exercitiu de cinci minute care merita mai mult decat o ora de teorie.
+
+N-o sa fie doar teorie si cod pe ecran. O sa incerc sa va invat meseria
+asta prin exercitii practice, si multe dintre ele o sa fie imprumutate
+din jocuri: o sa jucam barbut, o sa jucam poker, si o sa calculam
+impreuna sansele reale din spatele fiecarei decizii. Un joc de noroc e,
+de fapt, un laborator perfect de probabilitati: regulile sunt simple,
+miza e clara, si poti sa masori exact cat de bine gandesti fata de cat de
+bine crezi ca gandesti.
+
+O sa vorbim si despre lucruri din viata de zi cu zi, nu doar despre
+exemple abstracte de manual. Vreau sa incepeti sa observati cat de des va
+loviti de fapt de rationament probabilistic, chiar si atunci cand nu il
+numiti asa: cand decideti daca luati umbrela, cand cantariti un risc, cand
+cititi o stire cu un procent aruncat fara context.
+
+O sa atingem si zone mai fine de optimizare matematica, dar mereu cu
+intrebarea in minte: cat de des ne lovim de fapt de genul asta de
+problema? Nu vreau sa invatati o formula doar ca sa o uitati dupa
+concurs, vreau sa recunoasteti situatia in care chiar merita folosita.
+
+Un obiectiv mai ambitios: la finalul cursului, sper sa puteti purta un
+debate corect cu cineva, pe baza de date si probabilitati, nu pe baza de
+cine vorbeste mai tare sau cine are povestea mai convingatoare. Asta e,
+pana la urma, toata ideea: sa inlocuiti argumentul emotional cu unul care
+rezista la verificare.
+
+\section*{O nota de filozofie}
+
+Undeva la baza tuturor acestora sta o intrebare mai veche decat
+calculatoarele: cum ar trebui sa gandim in conditii de incertitudine?
+Filozofii au numit-o \textit{problema inductiei} cu multe secole inainte
+sa existe Machine Learning: din faptul ca soarele a rasarit in fiecare zi
+din viata ta, nu poti fi sigur 100\% ca rasare si maine, doar foarte,
+foarte increzator. Toata statistica moderna, si tot ce construim noi in
+cursul asta, e un raspuns practic la intrebarea aia: cum cuantificam
+increderea, in loc sa o lasam la nivel de senzatie.
+
+Nu e o intrebare doar tehnica. E, in fond, o intrebare despre onestitate
+intelectuala: esti dispus sa iti schimbi parerea cand apar date noi, sau
+te agati de prima poveste care ti s-a parut convingatoare? Un model bun
+de ML face asta automat, isi actualizeaza increderea pe masura ce vede
+date noi. Un om rational ar trebui sa faca la fel.
+
+Multe dintre dezbaterile de azi despre inteligenta artificiala si
+transumanism nu sunt, de fapt, chiar noi. Intrebarea daca o masina poate
+sa ``gandeasca'' cu adevarat, daca poate avea constiinta, daca deciziile
+ei sunt cu adevarat ale ei sau doar rezultatul mecanic al unor cauze
+anterioare, sunt variante reimpachetate ale unor dezbateri vechi de mii
+de ani: ce e sufletul, exista liber arbitru sau totul e determinism, ce
+ne face de fapt oameni. Filozofii dezbateau determinismul cu mult inainte
+sa existe retele neuronale, teologii dezbateau natura sufletului cu mult
+inainte sa existe calculatoare. Tehnologia noua ne da un vocabular nou
+pentru intrebari vechi, nu neaparat raspunsuri noi la ele.
+
+N-o sa rezolvam aici, in doua paragrafe, ce n-au rezolvat filozofii in
+doua mii de ani. Dar data viitoare cand cineva va vinde o poveste
+dramatica despre o inteligenta artificiala care ne va inlocui sau despre
+masini constiente, intrebati-va cate din argumentele alea sunt de fapt
+argumente teologice vechi, rescrise cu cuvinte noi.
+
+Asta nu inseamna sa subestimati unealta: ML rezolva azi probleme pe care
+acum douazeci de ani le credeam imposibile, si ne ajuta sa evoluam, nu
+doar sa fim mai eficienti. Nu vreau sa iesiti din curs nici
+naiv-entuziasmati, nici speriati de ziua de maine, ci suficient de
+lamuriti incat sa folositi unealta cu incredere, nu cu superstitie.
+
+\section*{Ce incerc sa insirui}
+
+Un parcurs de la zero pana la nivel de olimpiada, care va evolua pe
+parcurs. E facut din ce descriu ei pe ONIA, dar nu imi place ordinea in
+care se face asta neaparat.
+
+\begin{itemize}
+  \item Python, NumPy, Pandas
+  \item Prelucrarea si vizualizarea datelor
+  \item Machine Learning fundamentals
+  \item Regresie si clasificare
+  \item Decision Trees, Random Forest, Gradient Boosting, SVM, KNN
+  \item Clustering si PCA
+  \item Feature engineering
+  \item Train/validation/test si cross-validation
+  \item Overfitting, underfitting si regularizare
+  \item Metrici: Accuracy, Precision, Recall, F1, ROC-AUC, MSE, MAE, RMSE, R\textsuperscript{2}
+  \item Hyperparameter tuning
+  \item Neural Networks si PyTorch
+  \item Computer Vision
+  \item NLP
+  \item Probleme si exercitii de tip olimpiada
+\end{itemize}
+
+Structura exacta nu este batuta in cuie. Cursul se va construi pe masura
+ce vedem ce este util, ce este dificil si ce merita aprofundat.
+
+\section*{Referinte}
+
+\begin{itemize}
+  \item \href{https://platform.olimpiada-ai.ro/ro/roadmap/programa}{Programa oficiala a Olimpiadei Nationale de Inteligenta Artificiala}
+\end{itemize}

@@ -1,0 +1,50 @@
+\section{Exercitii}
+
+\subsection{Statistici fara bucla}
+\label{problem:statistici-vectorizate}
+
+\href{notebooks/statistici-vectorizate.ipynb}{notebook}
+$\bullet$
+\hyperref[code:statistici-vectorizate]{surse}
+
+Calculam medie, deviatie standard si normalizare pe un vector, intai cu
+bucla \pycode{for} ca sa vedem exact ce calculeaza, apoi vectorizat cu
+NumPy, si comparam timpul de executie intre variante.
+
+\subsection{Suma si maximul, cu NumPy}
+\label{problem:suma-maxim-numpy}
+
+\href{notebooks/suma-maxim-numpy.ipynb}{notebook}
+$\bullet$
+\hyperref[code:suma-maxim-numpy]{surse}
+
+Acelasi \hyperref[problem:suma-vector]{suma} si
+\hyperref[problem:maxim-vector]{maxim} din Curs 0, de data asta cu
+\pycode{v.sum()} si \pycode{v.max()}. Compara codul cu bucla de mana pe
+care ai scris-o acolo, calculul e identic, doar scris o singura data,
+in libraria.
+
+\subsection{Sortare si elemente unice}
+\label{problem:sortare-unice}
+
+\href{notebooks/sortare-unice.ipynb}{notebook}
+$\bullet$
+\hyperref[code:sortare-unice]{surse}
+
+\pycode{np.sort()} sorteaza un vector, \pycode{np.unique()} scoate
+duplicatele (si il sorteaza pe deasupra), \pycode{np.argmax()} iti da
+pozitia maximului, nu valoarea lui. Trei functii pe care o sa le
+folosesti des la prelucrarea datelor.
+
+% TODO: extindem lista de exercitii pana la 10-20, cate un pic din
+% fiecare directie. Idei, de adaugat pe rand, dupa ce confirmam ca
+% formatul de mai sus e ok:
+%
+% NumPy: np.cumsum, np.where (selectie conditionata fara bucla),
+%   broadcasting intre doua array-uri de dimensiuni diferite,
+%   reshape / array 2D (paralela cu matricile din C++), slicing
+%   multidimensional, masti booleene combinate cu & si |
+%
+% Pandas: citire si filtrare pe un CSV real (nu inventat), groupby cu
+%   mai multe agregari deodata, sort_values, merge intre doua tabele,
+%   valori lipsa (isna / fillna)

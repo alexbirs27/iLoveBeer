@@ -1,0 +1,162 @@
+\chapter{NumPy si Pandas}
+\label{chapter:numpy-pandas}
+
+Pentru inceput, un lucru destul de simplu, dar care conteaza mai mult decat pare la
+prima vedere: cum tine Python datele in memorie, si de ce, la un moment
+dat, un simplu \pycode{list} nu mai e de ajuns.
+
+\section{De ce NumPy}
+
+Cand scrii \pycode{v = [1, 2, 3, 4]} in Python, nu obtii un bloc de numere
+asezate frumos unul langa altul in memorie, cum ai crede. Obtii o lista de
+referinte, fiecare aratand catre cate un obiect Python separat, cu tot
+overhead-ul lui. E flexibil, dar e risipa cand ai milioane de numere de
+acelasi fel.
+
+\pycode{numpy.ndarray} rezolva exact asta: tine date brute, de un singur
+tip, intr-un bloc continuu de memorie. Dar motivul pentru care merita sa
+inveti bine NumPy nu e viteza in sine, e ca te obliga sa gandesti altfel.
+
+In loc sa ii spui calculatorului, pas cu pas, cum sa parcurga fiecare
+element, ii spui ce vrei sa obtii, pe tot vectorul deodata. Asta se cheama
+\textit{vectorizare}, regula asta o sa te salveze de multe
+ori: daca te trezesti ca scrii un \pycode{for} peste un array NumPy,
+aproape sigur exista deja o operatie care face exact ce vrei tu, mai
+rapid si mai clar.
+
+\begin{minted}{python}
+import numpy as np
+
+v = np.array([1, 2, 3, 4])
+v * 2      # array([2, 4, 6, 8]), fara bucla
+v.mean()   # 2.5
+v[v > 2]   # array([3, 4]), indexare booleana
+\end{minted}
+
+Nu trebuie sa memorezi functiile astea! Nici la olimpiada nu se
+asteapta nimeni sa le stie pe de rost, ai voie cu documentatia acolo.
+O sa vezi singur, din exercitii, care le folosesti des si care nu.
+
+\section{Ce face v.mean() de fapt}
+
+Aici e partea care conteaza cu adevarat pentru noi. \pycode{mean()} nu e
+magie, e o suma impartita la un numar, atat:
+
+\begin{minted}{python}
+def medie(v):
+    s = 0
+    for x in v:
+        s += x
+    return s / len(v)
+\end{minted}
+
+Asta e tot ce face NumPy pe dinauntru. Doar ca bucla ruleaza intr-un cod
+C, peste memorie continua, nu in Python peste obiecte separate, de-aia e
+de zeci de ori mai rapit, nu pentru ca ar calcula altceva.
+Vezi \hyperref[problem:statistici-vectorizate]{exercitiul} de
+mai jos pentru masuratoarea reala.
+
+Ideea se repeta la aproape orice functie din NumPy sau Pandas:
+\pycode{sum}, \pycode{std}, \pycode{groupby().mean()}, toate sunt formule
+simple, scrise o singura data, corect si rapid, ca sa nu le rescrii tu de
+fiecare data. Merita sa stii sa le scrii si de mana, macar o data. Pe asta
+ne concentram in cursul asta, nu doar pe ce functie exista si cum se
+apeleaza.
+
+\section{Complexitate: aceeasi, dar...}
+
+Amandoua variantele sunt $\mathcal{O}(n)$: fiecare element e vizitat o
+singura data, fie in bucla scrisa de mana, fie pe dinauntrul lui
+\pycode{v.mean()}. Din punctul de vedere al complexitatii, sunt identice.
+
+\begin{minipage}[t]{0.48\linewidth}
+\textbf{Bucla de mana}, $\mathcal{O}(n)$:
+\begin{minted}{python}
+s = 0
+for x in v:
+    s += x
+medie = s / len(v)
+\end{minted}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\textbf{NumPy}, $\mathcal{O}(n)$:
+\begin{minted}{python}
+medie = v.mean()
+\end{minted}
+\end{minipage}
+
+Atunci de unde diferenta de viteza pe care o masuram mai jos?
+Complexitatea iti spune cum creste timpul de executie o data cu $n$, nu
+cat dureaza efectiv un pas. Fiecare pas din bucla Python inseamna:
+interpretorul citeste o instructiune, verifica tipul lui \pycode{x}, face
+un apel de functie pentru \pycode{+=}, etc. Fiecare pas din
+\pycode{v.mean()} inseamna o singura adunare in cod masina, pe date deja
+asezate in memorie. Constanta ascunsa in spatele lui $\mathcal{O}(n)$ e
+mult mai mica la NumPy, chiar daca forma curbei e aceeasi.
+
+De-aia complexitatea nu e de ajuns: iti spune daca un algoritm se
+degradeaza bine cand creste $n$, dar nu iti spune care varianta e mai
+rapida la un $n$ fix. Pentru asta, masori direct.
+
+\section{Cum masuram timpul de executie}
+
+Am zis mai sus ca varianta vectorizata e "de zeci de ori mai rapida", dar
+nu ti-am aratat cum masor asta de fapt. Nu e nimic ascuns: retii timpul
+inainte, retii timpul dupa, faci diferenta.
+
+\begin{minted}{python}
+import time
+
+start = time.perf_counter()
+medie(v)
+timp = time.perf_counter() - start
+
+print(timp)   # cat a durat, in secunde
+\end{minted}
+
+\pycode{time.perf_counter()} iti da un ceas cat mai precis, facut special
+pentru masuratori de genul asta (spre deosebire de \pycode{time.time()},
+care e legat de ceasul sistemului de operare si poate sari inainte sau
+inapoi, de exemplu la sincronizare de retea). Diferenta dintre cele doua
+momente e timpul de rulare, atat.
+
+Ca sa compari doua variante, faci exact acelasi lucru de doua ori si
+raportezi una la alta:
+
+\begin{minted}{python}
+start = time.perf_counter()
+medie(v)
+timp_bucla = time.perf_counter() - start
+
+start = time.perf_counter()
+v.mean()
+timp_numpy = time.perf_counter() - start
+
+print(f"bucla:  {timp_bucla:.4f}s")
+print(f"numpy:  {timp_numpy:.4f}s")
+print(f"de {timp_bucla / timp_numpy:.0f}x mai rapid")
+\end{minted}
+
+Daca lucrezi intr-un notebook Jupyter, ca cele din exercitii, exista si o
+comanda mai scurta, \texttt{\%timeit}, care repeta automat masuratoarea de
+mai multe ori si iti da o medie mai stabila decat o singura masuratoare
+de mana. E convenabila, dar functioneaza doar in Jupyter, nu si intr-un
+script \pycode{.py} obisnuit, de-aia merita sa stii si varianta cu
+\pycode{time.perf_counter()}: e cea pe care o poti pune oriunde.
+
+\section{De ce Pandas}
+
+Un \pycode{DataFrame} e un tabel: coloane tipate, fiecare coloana fiind pe
+dedesubt tot un \pycode{ndarray}, si randuri indexate. E unealta pentru
+date tabelare, citire CSV, filtrare, grupare, agregare, pe care o sa o
+folosim la orice set de date cu care lucram, inainte sa ajungem macar la
+vreun model.
+
+\begin{minted}{python}
+import pandas as pd
+
+df = pd.read_csv("date.csv")
+df[df["scor"] > 50]                     # filtrare
+df.groupby("categorie")["scor"].mean()  # agregare
+\end{minted}

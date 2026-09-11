@@ -1,0 +1,109 @@
+\chapter{Introducere in Python}
+\label{chapter:python-intro}
+
+O sa presupun ca stii deja cum se parcurg vectori si matrici, ai facut
+asta de multe ori la C++. Fara presupunerea asta ne-am duce prea mult in
+spate cu recapitularea, si nu la asta ne intereseaza timpul. Ce facem aici
+e sa traducem ce stii deja in sintaxa lui Python, cat mai repede, ca sa
+ajungem la partea interesanta.
+
+\section{De ce Python, nu C++}
+
+Intrebarea e corecta. Ai invatat C++ pentru olimpiada pentru ca e rapid,
+apropiat de masina, te lasa sa controlezi fiecare octet. De ce am schimba
+asta acum?
+
+Raspunsul scurt: nu il schimbam, il ascundem. Aproape tot ce faci in
+NumPy sau PyTorch ruleaza, pe dedesubt, in cod C sau C++ compilat, ai
+vazut deja asta in \hyperref[chapter:numpy-pandas]{capitolul urmator}
+cand comparam \pycode{v.mean()} cu bucla scrisa de mana. Python nu
+inlocuieste C++, il apeleaza.
+
+Ce castigi renuntand la C++ ca limbaj de zi cu zi:
+
+\begin{itemize}
+  \item scrii mai putin cod pentru aceeasi idee, deci iterezi mai repede;
+  \item ai acces la un ecosistem urias de librarii facute exact pentru
+    ML (NumPy, Pandas, scikit-learn, PyTorch);
+  \item gresesti mai rar la lucruri marunte (memorie, tipuri), pentru ca
+    Python le gestioneaza singur.
+\end{itemize}
+
+Ce pierzi: viteza bruta pe cod scris de mana. Dar in ML aproape niciodata
+nu scrii tu bucla critica, o scrie altcineva o data, in C, si tu o apelezi
+de mii de ori. De-aia insist sa intelegi ce e in spate, nu ca sa scrii tu
+C prin Python, ci ca sa stii cand o functie e doar sirop peste ceva
+simplu si cand chiar face treaba grea pe care n-ai vrea sa o repeti
+singur.
+
+\section{Cum ar trebui sa scriem Python}
+
+Cateva reguli care difera fata de C++, si pe care merita sa le ai in cap
+de la inceput:
+
+\begin{itemize}
+  \item Blocurile de cod sunt definite prin indentare, nu prin acolade.
+    Daca indentarea e gresita, codul e gresit.
+  \item Nu declari tipul unei variabile. \pycode{x = 5} e de ajuns,
+    Python afla singur ca \pycode{x} e intreg.
+  \item Nu pui punct si virgula la finalul liniei.
+  \item Numele de variabile si functii se scriu \pycode{snake_case}, nu
+    \pycode{camelCase}.
+  \item Daca te trezesti scriind o bucla explicita peste o lista mare de
+    date, intreaba-te intai daca nu exista deja o functie care face
+    asta, o sa revenim serios la ideea asta in capitolul urmator.
+\end{itemize}
+
+\section{Sintaxa pe repede inainte}
+
+Trecem prin echivalentele directe ale lucrurilor pe care le stii deja din
+C++. Nu explic ce e o bucla sau ce e o functie, doar cum arata in Python.
+
+\begin{minted}{python}
+# variabile, fara tip declarat
+n = 5
+nume = "Alex"
+gasit = True
+
+# if / else
+if n > 0:
+    print("pozitiv")
+elif n == 0:
+    print("zero")
+else:
+    print("negativ")
+
+# bucla, echivalentul lui for (int i = 0; i < n; i++)
+for i in range(n):
+    print(i)
+
+# bucla, echivalentul lui for (int x : v)
+v = [1, 2, 3]
+for x in v:
+    print(x)
+
+# functie
+def patrat(x):
+    return x * x
+\end{minted}
+
+\pycode{list}-ul e echivalentul lui \pycode{vector} din C++, doar ca
+poate tine orice tip de date amestecat si isi schimba singur dimensiunea:
+
+\begin{minted}{python}
+v = []
+v.append(10)
+v.append(20)
+print(len(v))   # 2
+print(v[0])     # 10
+\end{minted}
+
+Operatorul \texttt{\%} (rest) si operatorul \pycode{//} (cat la
+impartirea intreaga) fac exact ce fac \texttt{\%} si \texttt{/} intre
+intregi in C++, doar ca in Python \pycode{/} intre intregi da mereu
+rezultat zecimal, de-aia exista \pycode{//} separat pentru impartirea
+intreaga.
+
+O sa vezi in capitolul urmator ca, pentru date numerice, NumPy inlocuieste
+\pycode{list}-ul cu ceva mai apropiat, ca structura de memorie, de
+\pycode{vector}-ul din C++. Dar pana acolo, \pycode{list}-ul e suficient.

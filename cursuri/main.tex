@@ -1,1 +1,42 @@
-# start
+% !TeX program = pdflatex
+\documentclass[12pt,openany]{book}
+\usepackage{import}
+\usepackage{preamble}
+
+\title{ML pentru Olimpiada}
+\author{}
+\date{}
+
+\begin{document}
+
+\pagestyle{plain}
+\pagenumbering{gobble}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+\hypersetup{pageanchor=true}
+\cleardoublepage
+
+
+\mainmatter
+
+\import{./}{preface.tex}
+
+\begingroup
+\hypersetup{hidelinks}
+\tableofcontents
+\endgroup
+
+\cleardoublepage
+
+\import{./}{python-intro.tex}
+\import{./}{fundamentals.tex}
+% \import{./}{data-processing.tex}
+% \import{./}{ml-basics.tex}
+% ... restul capitolelor, pe masura ce le scriem
+
+\import{./}{appendix.tex}
+
+\end{document}

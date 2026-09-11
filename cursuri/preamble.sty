@@ -1,0 +1,25 @@
+\ProvidesPackage{preamble}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage[pdfpagelabels]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=blue,
+  urlcolor=blue,
+}
+
+% Cod Python, inline si in bloc. Compilare cu -shell-escape (are nevoie de
+% pygments instalat: pip install pygments).
+\usepackage{minted}
+\usemintedstyle{manni}
+\setminted{
+  bgcolor=black!02,
+  fontsize=\footnotesize,
+  frame=lines,
+}
+\newcommand*{\pycode}[1]{\mintinline{python}{#1}}
