@@ -53,3 +53,12 @@ ca `fundamentals.tex`) + un folder `<capitol>/` cu teorie + exercitii +
 ## Referinte
 
 - [Programa oficiala a Olimpiadei Nationale de Inteligenta Artificiala](https://platform.olimpiada-ai.ro/ro/roadmap/programa)
+- [Problemele ale Olimpiadei Nationale de Inteligenta Artificiala](https://platform.olimpiada-ai.ro/ro/problems)
+
+## Plan
+
+O sa rezolv toate problemele de pe platforma, pe rand, si o sa le
+documentez: ce vor ei sa obtina cu fiecare, ce le scapa, ce ar trebui sa
+stie elevii pe langa ce cere problema explicit. Ideea e sa predau
+lucrurile de baza stiind deja ce ii asteapta mai departe, ca sa ii
+pregatesc atat pentru problemele in sine cat si pentru ce vine dupa ele.
