@@ -54,7 +54,10 @@ ca `fundamentals.tex`) + un folder `<capitol>/` cu teorie + exercitii +
 
 - [Programa oficiala a Olimpiadei Nationale de Inteligenta Artificiala](https://platform.olimpiada-ai.ro/ro/roadmap/programa)
 - [Problemele ale Olimpiadei Nationale de Inteligenta Artificiala](https://platform.olimpiada-ai.ro/ro/problems)
-
+- [Feature Engineering pe Kagle](https://www.kaggle.com/learn/feature-engineering)
+- [Introduction to NumPy, Pandas and Matplotlib](https://www.kaggle.com/code/chats351/introduction-to-numpy-pandas-and-matplotlib)
+- [A very good tutorial for Pandas](https://www.kaggle.com/learn/pandas)
+- [Cool stuf](https://www.kaggle.com/learn)
 ## Plan
 
 O sa rezolv toate problemele de pe platforma, pe rand, si o sa le
