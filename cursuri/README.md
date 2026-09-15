@@ -12,6 +12,26 @@ pdflatex -shell-escape main.tex
 ```
 (ruleaza de 2-3 ori, pana se stabilizeaza TOC-ul si referintele)
 
+## Deschide notebook-urile in Colab
+
+Fiecare notebook are (sau o sa aiba) un badge "Open in Colab". Elevul
+apasa pe el, apoi Copy to Drive, si lucreaza pe propria copie - nu poate
+scrie inapoi in repo. Link-ul se construieste asa: iei URL-ul de
+GitHub al notebook-ului si inlocuiesti `github.com` cu
+`colab.research.google.com/github`.
+
+Repo-ul are filtrul `nbstripout` instalat, deci output-urile din
+notebook-uri se sterg automat la commit - nu se salveaza rezultate vechi
+peste tot in istoric.
+
+Momentan doar notebook-ul de test are badge (cat verific ca fluxul chiar
+merge):
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alexbirs27/iLoveBeer/blob/main/cursuri/playground-test/salut-colab.ipynb) `playground-test/salut-colab.ipynb`
+
+Pe masura ce pun badge si pe notebook-urile reale (`python-intro/`,
+`fundamentals/`), o le adaug aici.
+
 ## Structura
 
 ```
