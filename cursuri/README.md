@@ -22,13 +22,16 @@ si inlocuiesti `github.com` cu `colab.research.google.com/github`.
 Repo-ul are filtrul `nbstripout` instalat, deci output-urile se sterg
 automat la commit.
 
-Momentan doar notebook-ul de test are badge (cat verific ca fluxul chiar
-merge):
+Notebook-uri cu badge, deocamdata:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alexbirs27/iLoveBeer/blob/main/cursuri/playground-test/salut-colab.ipynb) `playground-test/salut-colab.ipynb`
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alexbirs27/iLoveBeer/blob/main/cursuri/python-intro/notebooks/curs-python-intro.ipynb) `python-intro/notebooks/curs-python-intro.ipynb` - notebook-ul de curs, cu explicatii si exemple rezolvate
 
-Pe masura ce pun badge si pe notebook-urile reale (`python-intro/`,
-`fundamentals/`), o le adaug aici.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alexbirs27/iLoveBeer/blob/main/cursuri/python-intro/notebooks/exercitii-python-intro.ipynb) `python-intro/notebooks/exercitii-python-intro.ipynb` - playground, exercitii goale pentru elevi
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alexbirs27/iLoveBeer/blob/main/cursuri/playground-test/salut-colab.ipynb) `playground-test/salut-colab.ipynb` - notebook de test, cat am verificat fluxul
+
+Pe masura ce pun badge si pe restul notebook-urilor (`fundamentals/`,
+exercitiile individuale din `python-intro/`), o le adaug aici.
 
 ## Structura
 
