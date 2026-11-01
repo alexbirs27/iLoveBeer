@@ -22,7 +22,12 @@ si inlocuiesti `github.com` cu `colab.research.google.com/github`.
 Repo-ul are filtrul `nbstripout` instalat, deci output-urile se sterg
 automat la commit.
 
-Notebook-uri cu badge, deocamdata:
+Seria principala de colab-uri (predare + tema pentru fiecare topic din
+programa: structuri, liste, multimi, dictionare, functii, clase, fisiere,
+EDA, valori lipsa, normalizare, scalare) e in [`colab/`](colab/README.md),
+cu vizualizator pas cu pas si verificare automata a exercitiilor.
+
+Alte notebook-uri cu badge:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alexbirs27/iLoveBeer/blob/main/cursuri/python-intro/notebooks/curs-python-intro.ipynb) `python-intro/notebooks/curs-python-intro.ipynb` - notebook-ul de curs, cu explicatii si exemple rezolvate
 
